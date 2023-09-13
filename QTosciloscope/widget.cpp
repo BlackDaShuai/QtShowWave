@@ -190,7 +190,7 @@ void Widget::on_open_clicked()
 
             return;
         }
-        timeStart->start();
+//        timeStart->start();
         //打开成功，失能combobox
         ui->cbBaudRate->setEnabled(false);
         ui->cbDataBits->setEnabled(false);
@@ -207,7 +207,7 @@ void Widget::on_open_clicked()
         ui->lbConnected->setText("当前未连接");
         Serial->close();
 //        ui->cusplot->
-        timeStart->stop();
+//        timeStart->stop();
         ui->cbBaudRate->setEnabled(true);
         ui->cbDataBits->setEnabled(true);
         ui->cbParity->setEnabled(true);
@@ -356,6 +356,9 @@ void Widget::customInit()
 
     ui->cusplot->setBackground(Qt::white);
 
+    ui->cusplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);      //可拖拽+可滚轮缩放
+
+
     ui->cusplot->addGraph();//添加一条线
 
     ui->cusplot->graph(0)->setPen(QPen(Qt::red));
@@ -373,14 +376,16 @@ void Widget::customInit()
 
 void Widget::customTimeOut()
 {
+if(flagUpdateDraw)
+{
     if(countTimeOut<100)
     {
-         countTimeOut++;
+        countTimeOut++;
         yVal++;
     }else
     {
-         countTimeOut++;
-         yVal--;
+        countTimeOut++;
+        yVal--;
     }
 
 
@@ -396,7 +401,7 @@ void Widget::customTimeOut()
     updateXYMinMaxToCus();
 //    ui->cusplot->graph(0)->rescaleKeyAxis(true);
     ui->cusplot->replot();
-
+}
 
 }
 
@@ -408,22 +413,29 @@ void Widget::updateXYMinMaxToCus()
 //    yMinAuto = (ui->cusplot->yAxis->range().lower)*0.8;
 //    ui->cusplot->yAxis->setRange(yMinAuto,yMaxAuto);
 
-    ui->cusplot->graph(0)->rescaleKeyAxis(true);
-    ui->cusplot->graph(0)->rescaleAxes();
-    ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
+    if(flagAlwaysAuto){
+        //y轴
+        ui->cusplot->graph(0)->rescaleKeyAxis(true);
+        ui->cusplot->graph(0)->rescaleAxes();
+
+        //x轴
+        ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
                                      ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
                                      :0,
-                                 ui->cusplot->graph(0)->dataCount());
+                                     ui->cusplot->graph(0)->dataCount());
+    }
+
 
 //        ui->cusplot->graph(0)->rescaleValueAxis(true,true);
 //        ui->cusplot->graph(0)->rescaleKeyAxis(true);
 //    ui->cusplot->xAxis->setRange(countTimeOut,100,Qt::AlignRight);//设置默认坐标轴值
 //    ui->cusplot->yAxis->setRange(countTimeOut,countTimeOut,Qt::AlignCenter);
+    ui->cusplot->replot();
 }
 
 
-
-void Widget::on_pushButton_clicked()
+//清空绘制区
+void Widget::on_clearCharts_clicked()
 {
     ui->cusplot->graph(0)->data().data()->clear();
     countTimeOut = 0;
@@ -437,15 +449,53 @@ void Widget::on_pushButton_clicked()
 void Widget::on_horizontalSlider_sliderMoved(int position)
 {
     xRangeRange = position;
+    ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
+                                     ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
+                                     :0,
+                                 ui->cusplot->graph(0)->dataCount());
 }
 
 
-void Widget::on_pushButton_2_clicked()
+
+
+
+//置位停止绘制
+void Widget::on_stopDraw_clicked()
 {
-    ui->cusplot->graph(0)->data().data()->clear();
-    countTimeOut = 0;
+    if(ui->stopDraw->text() == "StopDraw")
+    {
 
-    ui->cusplot->replot();
+        flagUpdateDraw = 0;
+        ui->stopDraw->setText("StartDraw");
+    }
+    else
+    {
+        flagUpdateDraw = 1;
+        ui->stopDraw->setText("StopDraw");
+    }
+
 }
 
+
+void Widget::on_AutoSet_clicked()
+{
+    ui->cusplot->graph(0)->rescaleKeyAxis(true);
+    ui->cusplot->graph(0)->rescaleAxes();
+}
+
+
+
+
+
+void Widget::on_AlwaysAuto_stateChanged(int arg1)
+{
+    if(arg1 == 2)
+    {
+        flagAlwaysAuto = 1;
+    }
+    else
+    {
+        flagAlwaysAuto = 0;
+    }
+}
 

@@ -71,11 +71,18 @@ private slots:
     //    void xAxisChanged(QCPRange range);
     //    void yAxisChanged(QCPRange range);
 
-    void on_pushButton_clicked();
+
 
     void on_horizontalSlider_sliderMoved(int position);
 
-    void on_pushButton_2_clicked();
+
+    void on_stopDraw_clicked();
+
+    void on_AutoSet_clicked();
+
+    void on_clearCharts_clicked();
+
+    void on_AlwaysAuto_stateChanged(int arg1);
 
 private:
     Ui::Widget *ui;
@@ -87,6 +94,9 @@ private:
     int MaxY = 100;
     int MinY = -100;
     QTimer *timeStart = new QTimer();
+
+    bool flagUpdateDraw = 1;
+    bool flagAlwaysAuto = 1;
 
     //绘图数据更新间隔
     int tIv = 10;

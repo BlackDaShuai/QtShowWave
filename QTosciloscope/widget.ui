@@ -448,98 +448,96 @@
            <property name="title">
             <string>绘制控制</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_6">
-            <item row="1" column="0">
-             <widget class="QTabWidget" name="tabWidget">
-              <property name="tabPosition">
-               <enum>QTabWidget::North</enum>
-              </property>
-              <property name="tabShape">
-               <enum>QTabWidget::Rounded</enum>
-              </property>
-              <property name="currentIndex">
-               <number>1</number>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>16</width>
-                <height>16</height>
-               </size>
-              </property>
-              <widget class="QWidget" name="tabAuto">
-               <attribute name="title">
-                <string>Auto</string>
-               </attribute>
-               <widget class="QPushButton" name="pushButton">
-                <property name="geometry">
-                 <rect>
-                  <x>30</x>
-                  <y>20</y>
-                  <width>92</width>
-                  <height>28</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>ClearCharts</string>
-                </property>
-               </widget>
-              </widget>
-              <widget class="QWidget" name="tabMan">
-               <attribute name="title">
-                <string>Manual</string>
-               </attribute>
-               <widget class="QSlider" name="horizontalSlider">
-                <property name="geometry">
-                 <rect>
-                  <x>230</x>
-                  <y>20</y>
-                  <width>121</width>
-                  <height>18</height>
-                 </rect>
-                </property>
-                <property name="minimum">
-                 <number>100</number>
-                </property>
-                <property name="maximum">
-                 <number>1000</number>
-                </property>
-                <property name="value">
-                 <number>500</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-               <widget class="QLabel" name="label_6">
-                <property name="geometry">
-                 <rect>
-                  <x>160</x>
-                  <y>20</y>
-                  <width>67</width>
-                  <height>20</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>显示范围</string>
-                </property>
-               </widget>
-               <widget class="QPushButton" name="pushButton_2">
-                <property name="geometry">
-                 <rect>
-                  <x>30</x>
-                  <y>20</y>
-                  <width>93</width>
-                  <height>29</height>
-                 </rect>
-                </property>
-                <property name="text">
-                 <string>ClearCharts</string>
-                </property>
-               </widget>
-              </widget>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QSlider" name="horizontalSlider">
+            <property name="geometry">
+             <rect>
+              <x>180</x>
+              <y>80</y>
+              <width>84</width>
+              <height>18</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>1000</number>
+            </property>
+            <property name="value">
+             <number>500</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_6">
+            <property name="geometry">
+             <rect>
+              <x>110</x>
+              <y>80</y>
+              <width>60</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>显示范围</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="clearCharts">
+            <property name="geometry">
+             <rect>
+              <x>290</x>
+              <y>80</y>
+              <width>93</width>
+              <height>29</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>ClearCharts</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="stopDraw">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>80</y>
+              <width>81</width>
+              <height>29</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>StopDraw</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="AutoSet">
+            <property name="geometry">
+             <rect>
+              <x>170</x>
+              <y>40</y>
+              <width>93</width>
+              <height>29</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>AutoSet</string>
+            </property>
+           </widget>
+           <widget class="QCheckBox" name="AlwaysAuto">
+            <property name="geometry">
+             <rect>
+              <x>10</x>
+              <y>40</y>
+              <width>131</width>
+              <height>26</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>AlwaysAutoSet</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
           </widget>
          </item>
         </layout>
