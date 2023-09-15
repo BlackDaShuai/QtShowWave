@@ -4,6 +4,13 @@
 #include <QRegularExpression>
 #include <QFont>
 #include "qcustomplot.h"
+#include <QtMath>
+
+/*todo:
+ * 清空曲线的时候把x轴坐标删掉负号
+ * 将串口的名字写在端口号后面
+ *
+ */
 //#include <QTextCharFormat>
 
 QFont font;
@@ -16,6 +23,7 @@ Widget::Widget(QWidget *parent)
 
     customInit();
     connect(timeStart,&QTimer::timeout,this,&Widget::customTimeOut);
+    connect(/*&showSerialData*/this,&Widget::serialRecOK,this,&Widget::drawSerialData);
 
     //设置默认波特率
     ui->cbBaudRate->setCurrentText("115200");
@@ -116,9 +124,7 @@ void Widget::on_clear_clicked()
 
 
 
-/*Todo:
- ********* 将串口的名字写在端口号后面
- */
+
 //检测串口
 void Widget::on_cbPortName_clicked()
 {
@@ -206,8 +212,7 @@ void Widget::on_open_clicked()
         ui->receiveEdit->appendPlainText("串口已关闭！\r\n");
         ui->lbConnected->setText("当前未连接");
         Serial->close();
-//        ui->cusplot->
-//        timeStart->stop();
+
         ui->cbBaudRate->setEnabled(true);
         ui->cbDataBits->setEnabled(true);
         ui->cbParity->setEnabled(true);
@@ -259,6 +264,12 @@ void Widget::showSerialData()
         QString toData = QString::fromUtf8(data);
         ui->receiveEdit->insertPlainText(toData);
         qDebug()<<toData;
+
+
+//        flagFirstDataToDraw = 1;
+        upDateTime(1);
+
+        emit serialRecOK();
 
     }
 
@@ -356,59 +367,34 @@ void Widget::customInit()
 
     ui->cusplot->setBackground(Qt::white);
 
-    ui->cusplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);      //可拖拽+可滚轮缩放
+    ui->cusplot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom /*| QCP::iSelectPlottables*/);      //可拖拽+可滚轮缩放
 
 
     ui->cusplot->addGraph();//添加一条线
 
     ui->cusplot->graph(0)->setPen(QPen(Qt::red));
 
-    ui->cusplot->xAxis->setLabel("时间");//设置xy轴的标签
-    ui->cusplot->yAxis->setLabel("值");
+    ui->cusplot->xAxis->setLabel("时间(ms)");//设置xy轴的标签
+    ui->cusplot->yAxis->setLabel("值(double)");
 
-    upDateTime(1);//开始计时
+//    upDateTime(1);//开始计时
     ui->cusplot->axisRect()->setRangeZoom(Qt::Vertical);
 
     updateXYMinMaxToCus();
+    ui->cusplot->legend->setVisible(true);
 
     ui->cusplot->replot();
 }
 
 void Widget::customTimeOut()
 {
-if(flagUpdateDraw)
-{
-    if(countTimeOut<100)
-    {
-        countTimeOut++;
-        yVal++;
-    }else
-    {
-        countTimeOut++;
-        yVal--;
-    }
-
-
-
-    ui->cusplot->graph(0)->addData(countTimeOut,yVal);
-
-    //自动更新坐标轴
-//    ui->cusplot->graph(0)->rescaleValueAxis(true,true);
-//    ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>500)
-//                                ?(ui->cusplot->graph(0)->dataCount()-500)
-//                                :0,
-//                                 ui->cusplot->graph(0)->dataCount());
-    updateXYMinMaxToCus();
-//    ui->cusplot->graph(0)->rescaleKeyAxis(true);
-    ui->cusplot->replot();
-}
-
+    countTimeOut++;
 }
 
 //更新坐标轴最大值
 void Widget::updateXYMinMaxToCus()
 {
-//y轴操作，这里不太对，操作了y轴坐标，而非曲线坐标
+//y轴操作，这里不太对，操作了y轴坐标，导致坐标一直在疯狂扩张。
 //    yMaxAuto = (ui->cusplot->yAxis->range().upper)*1.2;
 //    yMinAuto = (ui->cusplot->yAxis->range().lower)*0.8;
 //    ui->cusplot->yAxis->setRange(yMinAuto,yMaxAuto);
@@ -419,10 +405,18 @@ void Widget::updateXYMinMaxToCus()
         ui->cusplot->graph(0)->rescaleAxes();
 
         //x轴
-        ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
-                                     ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
-                                     :0,
-                                     ui->cusplot->graph(0)->dataCount());
+//        ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
+//                                     ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
+//                                     :0,
+//                                     ui->cusplot->graph(0)->dataCount());
+
+//        ui->cusplot->graph(0)->rescaleKeyAxis(true);
+
+        //x轴
+                ui->cusplot->xAxis->setRange((countTimeOut - xRangeRange)
+                                             ?(countTimeOut - xRangeRange)
+                                             :0,
+                                             countTimeOut);
     }
 
 
@@ -439,6 +433,7 @@ void Widget::on_clearCharts_clicked()
 {
     ui->cusplot->graph(0)->data().data()->clear();
     countTimeOut = 0;
+    timeStart->stop();//使定时器停止，防止增加rimeOut的值导致后续数据的x轴混乱
 
     ui->cusplot->replot();
 }
@@ -449,10 +444,11 @@ void Widget::on_clearCharts_clicked()
 void Widget::on_horizontalSlider_sliderMoved(int position)
 {
     xRangeRange = position;
-    ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
-                                     ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
-                                     :0,
-                                 ui->cusplot->graph(0)->dataCount());
+//    ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
+//                                     ?(ui->cusplot->graph(0)->dataCount()-xRangeRange)
+//                                     :0,
+//                                 ui->cusplot->graph(0)->dataCount());
+    ui->cusplot->replot();
 }
 
 
@@ -496,6 +492,25 @@ void Widget::on_AlwaysAuto_stateChanged(int arg1)
     else
     {
         flagAlwaysAuto = 0;
+    }
+}
+
+void Widget::drawSerialData()
+{
+    if(flagUpdateDraw)
+    {
+
+        yVal = qSin(countTimeOut);
+        qDebug()<<countTimeOut;
+        qDebug()<<yVal;
+
+
+        ui->cusplot->graph(0)->addData(countTimeOut,yVal);
+
+        //自动更新坐标轴
+        updateXYMinMaxToCus();
+        //    ui->cusplot->graph(0)->rescaleKeyAxis(true);
+        ui->cusplot->replot();
     }
 }
 

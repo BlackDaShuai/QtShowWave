@@ -448,96 +448,59 @@
            <property name="title">
             <string>绘制控制</string>
            </property>
-           <widget class="QSlider" name="horizontalSlider">
-            <property name="geometry">
-             <rect>
-              <x>180</x>
-              <y>80</y>
-              <width>84</width>
-              <height>18</height>
-             </rect>
-            </property>
-            <property name="minimum">
-             <number>100</number>
-            </property>
-            <property name="maximum">
-             <number>1000</number>
-            </property>
-            <property name="value">
-             <number>500</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-           <widget class="QLabel" name="label_6">
-            <property name="geometry">
-             <rect>
-              <x>110</x>
-              <y>80</y>
-              <width>60</width>
-              <height>20</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>显示范围</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="clearCharts">
-            <property name="geometry">
-             <rect>
-              <x>290</x>
-              <y>80</y>
-              <width>93</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>ClearCharts</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="stopDraw">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>80</y>
-              <width>81</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>StopDraw</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="AutoSet">
-            <property name="geometry">
-             <rect>
-              <x>170</x>
-              <y>40</y>
-              <width>93</width>
-              <height>29</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>AutoSet</string>
-            </property>
-           </widget>
-           <widget class="QCheckBox" name="AlwaysAuto">
-            <property name="geometry">
-             <rect>
-              <x>10</x>
-              <y>40</y>
-              <width>131</width>
-              <height>26</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>AlwaysAutoSet</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <widget class="QSlider" name="horizontalSlider">
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>1000</number>
+              </property>
+              <property name="value">
+               <number>500</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <item>
+               <widget class="QCheckBox" name="AlwaysAuto">
+                <property name="text">
+                 <string>AlwaysAutoSet</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="AutoSet">
+                <property name="text">
+                 <string>AutoSet</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="clearCharts">
+                <property name="text">
+                 <string>ClearCharts</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="stopDraw">
+              <property name="text">
+               <string>StopDraw</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>

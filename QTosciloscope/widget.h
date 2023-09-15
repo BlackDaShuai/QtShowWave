@@ -23,7 +23,7 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
 
-    int countTimeOut = 0;
+    long long countTimeOut = 0;
     ~Widget();
 
 
@@ -75,7 +75,6 @@ private slots:
 
     void on_horizontalSlider_sliderMoved(int position);
 
-
     void on_stopDraw_clicked();
 
     void on_AutoSet_clicked();
@@ -83,6 +82,8 @@ private slots:
     void on_clearCharts_clicked();
 
     void on_AlwaysAuto_stateChanged(int arg1);
+
+    void drawSerialData();//串口收完数据后的绘制操作
 
 private:
     Ui::Widget *ui;
@@ -97,16 +98,20 @@ private:
 
     bool flagUpdateDraw = 1;
     bool flagAlwaysAuto = 1;
+    bool flagFirstDataToDraw = 0;
 
     //绘图数据更新间隔
     int tIv = 10;
     int *timeInterval = &tIv;
-    int yVal = 0;
+    double yVal = 0;
 
     int xRangeRange = 500;
 
     double yMaxAuto = 0;
     double yMinAuto = 0;
     //testData
+
+signals:
+    void serialRecOK();
 };
 #endif // WIDGET_H
