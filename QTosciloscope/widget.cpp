@@ -227,10 +227,10 @@ void Widget::on_open_clicked()
 void Widget::showSerialData()
 {
 
-    qDebug()<<"shou";
+
     if(Serial->bytesAvailable()>0)
     {
-        qDebug()<<"asd awd ";
+
         QByteArray data = Serial->readAll();
         if(ui->chk0x16Show->isChecked())
         {
@@ -268,6 +268,7 @@ void Widget::showSerialData()
 
 //        flagFirstDataToDraw = 1;
         upDateTime(1);
+        qDebug()<<countTimeOut;
 
         emit serialRecOK();
 
@@ -377,7 +378,7 @@ void Widget::customInit()
     ui->cusplot->xAxis->setLabel("时间(ms)");//设置xy轴的标签
     ui->cusplot->yAxis->setLabel("值(double)");
 
-//    upDateTime(1);//开始计时
+
     ui->cusplot->axisRect()->setRangeZoom(Qt::Vertical);
 
     updateXYMinMaxToCus();
@@ -389,6 +390,22 @@ void Widget::customInit()
 void Widget::customTimeOut()
 {
     countTimeOut++;
+
+    if(flagUpdateDraw)
+    {
+
+        yVal = qSin(countTimeOut);
+        qDebug()<<countTimeOut;
+        qDebug()<<yVal;
+
+
+        ui->cusplot->graph(0)->addData(countTimeOut,yVal);
+
+        //自动更新坐标轴
+        updateXYMinMaxToCus();
+        //    ui->cusplot->graph(0)->rescaleKeyAxis(true);
+        ui->cusplot->replot();
+    }
 }
 
 //更新坐标轴最大值
@@ -497,20 +514,6 @@ void Widget::on_AlwaysAuto_stateChanged(int arg1)
 
 void Widget::drawSerialData()
 {
-    if(flagUpdateDraw)
-    {
 
-        yVal = qSin(countTimeOut);
-        qDebug()<<countTimeOut;
-        qDebug()<<yVal;
-
-
-        ui->cusplot->graph(0)->addData(countTimeOut,yVal);
-
-        //自动更新坐标轴
-        updateXYMinMaxToCus();
-        //    ui->cusplot->graph(0)->rescaleKeyAxis(true);
-        ui->cusplot->replot();
-    }
 }
 

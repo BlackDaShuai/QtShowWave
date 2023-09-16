@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1254</width>
-    <height>663</height>
+    <height>707</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -448,29 +448,106 @@
            <property name="title">
             <string>绘制控制</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_6">
+           <layout class="QVBoxLayout" name="verticalLayout_8">
             <item>
-             <widget class="QSlider" name="horizontalSlider">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>1000</number>
-              </property>
-              <property name="value">
-               <number>500</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,10,1">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QSpinBox" name="minRange">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="font">
+                   <font>
+                    <pointsize>6</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>MIN</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QSlider" name="horizontalSlider">
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+                <property name="value">
+                 <number>500</number>
+                </property>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="tickPosition">
+                 <enum>QSlider::TicksBelow</enum>
+                </property>
+                <property name="tickInterval">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QSpinBox" name="spinBox_2">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
+                  <property name="value">
+                   <number>1000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_7">
+                  <property name="font">
+                   <font>
+                    <pointsize>6</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>MAX</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_2">
               <item>
                <widget class="QCheckBox" name="AlwaysAuto">
                 <property name="text">
-                 <string>AlwaysAutoSet</string>
+                 <string>自动设置</string>
                 </property>
                 <property name="checked">
                  <bool>true</bool>
@@ -480,14 +557,14 @@
               <item>
                <widget class="QPushButton" name="AutoSet">
                 <property name="text">
-                 <string>AutoSet</string>
+                 <string>单次自动</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="clearCharts">
                 <property name="text">
-                 <string>ClearCharts</string>
+                 <string>清除曲线</string>
                 </property>
                </widget>
               </item>
@@ -496,7 +573,7 @@
             <item>
              <widget class="QPushButton" name="stopDraw">
               <property name="text">
-               <string>StopDraw</string>
+               <string>停止绘制</string>
               </property>
              </widget>
             </item>
