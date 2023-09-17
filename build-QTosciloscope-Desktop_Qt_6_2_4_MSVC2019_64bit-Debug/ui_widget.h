@@ -92,9 +92,11 @@ public:
     QLabel *label_7;
     QHBoxLayout *horizontalLayout_2;
     QCheckBox *AlwaysAuto;
+    QCheckBox *checkBox;
+    QSpacerItem *horizontalSpacer;
     QPushButton *AutoSet;
-    QPushButton *clearCharts;
     QPushButton *stopDraw;
+    QPushButton *clearCharts;
 
     void setupUi(QWidget *Widget)
     {
@@ -311,6 +313,7 @@ public:
         receiveEdit = new QPlainTextEdit(groupBox_2);
         receiveEdit->setObjectName(QString::fromUtf8("receiveEdit"));
         receiveEdit->setReadOnly(true);
+        receiveEdit->setTextInteractionFlags(Qt::NoTextInteraction);
         receiveEdit->setMaximumBlockCount(100000);
 
         gridLayout_2->addWidget(receiveEdit, 0, 0, 1, 1);
@@ -423,10 +426,25 @@ public:
 
         horizontalLayout_2->addWidget(AlwaysAuto);
 
+        checkBox = new QCheckBox(groupBox_5);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+        checkBox->setChecked(true);
+
+        horizontalLayout_2->addWidget(checkBox);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
         AutoSet = new QPushButton(groupBox_5);
         AutoSet->setObjectName(QString::fromUtf8("AutoSet"));
 
         horizontalLayout_2->addWidget(AutoSet);
+
+        stopDraw = new QPushButton(groupBox_5);
+        stopDraw->setObjectName(QString::fromUtf8("stopDraw"));
+
+        horizontalLayout_2->addWidget(stopDraw);
 
         clearCharts = new QPushButton(groupBox_5);
         clearCharts->setObjectName(QString::fromUtf8("clearCharts"));
@@ -435,11 +453,6 @@ public:
 
 
         verticalLayout_8->addLayout(horizontalLayout_2);
-
-        stopDraw = new QPushButton(groupBox_5);
-        stopDraw->setObjectName(QString::fromUtf8("stopDraw"));
-
-        verticalLayout_8->addWidget(stopDraw);
 
 
         verticalLayout_4->addWidget(groupBox_5);
@@ -531,9 +544,10 @@ public:
         label_6->setText(QCoreApplication::translate("Widget", "MIN", nullptr));
         label_7->setText(QCoreApplication::translate("Widget", "MAX", nullptr));
         AlwaysAuto->setText(QCoreApplication::translate("Widget", "\350\207\252\345\212\250\350\256\276\347\275\256", nullptr));
+        checkBox->setText(QCoreApplication::translate("Widget", "xAuto", nullptr));
         AutoSet->setText(QCoreApplication::translate("Widget", "\345\215\225\346\254\241\350\207\252\345\212\250", nullptr));
-        clearCharts->setText(QCoreApplication::translate("Widget", "\346\270\205\351\231\244\346\233\262\347\272\277", nullptr));
         stopDraw->setText(QCoreApplication::translate("Widget", "\345\201\234\346\255\242\347\273\230\345\210\266", nullptr));
+        clearCharts->setText(QCoreApplication::translate("Widget", "\346\270\205\351\231\244\346\233\262\347\272\277", nullptr));
     } // retranslateUi
 
 };

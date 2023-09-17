@@ -24,8 +24,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Widget_t {
-    const uint offsetsAndSize[50];
-    char stringdata0[415];
+    const uint offsetsAndSize[52];
+    char stringdata0[440];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(offsetof(qt_meta_stringdata_Widget_t, stringdata0) + ofs), len 
@@ -55,7 +55,8 @@ QT_MOC_LITERAL(311, 19), // "on_stopDraw_clicked"
 QT_MOC_LITERAL(331, 18), // "on_AutoSet_clicked"
 QT_MOC_LITERAL(350, 22), // "on_clearCharts_clicked"
 QT_MOC_LITERAL(373, 26), // "on_AlwaysAuto_stateChanged"
-QT_MOC_LITERAL(400, 14) // "drawSerialData"
+QT_MOC_LITERAL(400, 14), // "drawSerialData"
+QT_MOC_LITERAL(415, 24) // "on_checkBox_stateChanged"
 
     },
     "Widget\0serialRecOK\0\0on_clear_clicked\0"
@@ -68,7 +69,8 @@ QT_MOC_LITERAL(400, 14) // "drawSerialData"
     "on_horizontalSlider_sliderMoved\0"
     "position\0on_stopDraw_clicked\0"
     "on_AutoSet_clicked\0on_clearCharts_clicked\0"
-    "on_AlwaysAuto_stateChanged\0drawSerialData"
+    "on_AlwaysAuto_stateChanged\0drawSerialData\0"
+    "on_checkBox_stateChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -78,7 +80,7 @@ static const uint qt_meta_data_Widget[] = {
       10,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      21,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -86,28 +88,29 @@ static const uint qt_meta_data_Widget[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,  134,    2, 0x06,    1 /* Public */,
+       1,    0,  140,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,  135,    2, 0x08,    2 /* Private */,
-       4,    0,  136,    2, 0x08,    3 /* Private */,
-       5,    0,  137,    2, 0x08,    4 /* Private */,
-       6,    0,  138,    2, 0x08,    5 /* Private */,
-       7,    0,  139,    2, 0x08,    6 /* Private */,
-       8,    0,  140,    2, 0x08,    7 /* Private */,
-       9,    0,  141,    2, 0x08,    8 /* Private */,
-      10,    1,  142,    2, 0x08,    9 /* Private */,
-      12,    1,  145,    2, 0x08,   11 /* Private */,
-      14,    1,  148,    2, 0x08,   13 /* Private */,
-      15,    0,  151,    2, 0x08,   15 /* Private */,
-      16,    0,  152,    2, 0x08,   16 /* Private */,
-      17,    0,  153,    2, 0x08,   17 /* Private */,
-      18,    1,  154,    2, 0x08,   18 /* Private */,
-      20,    0,  157,    2, 0x08,   20 /* Private */,
-      21,    0,  158,    2, 0x08,   21 /* Private */,
-      22,    0,  159,    2, 0x08,   22 /* Private */,
-      23,    1,  160,    2, 0x08,   23 /* Private */,
-      24,    0,  163,    2, 0x08,   25 /* Private */,
+       3,    0,  141,    2, 0x08,    2 /* Private */,
+       4,    0,  142,    2, 0x08,    3 /* Private */,
+       5,    0,  143,    2, 0x08,    4 /* Private */,
+       6,    0,  144,    2, 0x08,    5 /* Private */,
+       7,    0,  145,    2, 0x08,    6 /* Private */,
+       8,    0,  146,    2, 0x08,    7 /* Private */,
+       9,    0,  147,    2, 0x08,    8 /* Private */,
+      10,    1,  148,    2, 0x08,    9 /* Private */,
+      12,    1,  151,    2, 0x08,   11 /* Private */,
+      14,    1,  154,    2, 0x08,   13 /* Private */,
+      15,    0,  157,    2, 0x08,   15 /* Private */,
+      16,    0,  158,    2, 0x08,   16 /* Private */,
+      17,    0,  159,    2, 0x08,   17 /* Private */,
+      18,    1,  160,    2, 0x08,   18 /* Private */,
+      20,    0,  163,    2, 0x08,   20 /* Private */,
+      21,    0,  164,    2, 0x08,   21 /* Private */,
+      22,    0,  165,    2, 0x08,   22 /* Private */,
+      23,    1,  166,    2, 0x08,   23 /* Private */,
+      24,    0,  169,    2, 0x08,   25 /* Private */,
+      25,    1,  170,    2, 0x08,   26 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -132,6 +135,7 @@ static const uint qt_meta_data_Widget[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   11,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   11,
 
        0        // eod
 };
@@ -163,6 +167,7 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 17: _t->on_clearCharts_clicked(); break;
         case 18: _t->on_AlwaysAuto_stateChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 19: _t->drawSerialData(); break;
+        case 20: _t->on_checkBox_stateChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -185,7 +190,7 @@ const QMetaObject Widget::staticMetaObject = { {
     nullptr,
 qt_incomplete_metaTypeArray<qt_meta_stringdata_Widget_t
 , QtPrivate::TypeAndForceComplete<Widget, std::true_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
-, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>
+, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<QString, std::false_type>, QtPrivate::TypeAndForceComplete<bool, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<void, std::false_type>, QtPrivate::TypeAndForceComplete<int, std::false_type>
 
 
 >,
@@ -212,13 +217,13 @@ int Widget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 20)
+        if (_id < 21)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 20;
+        _id -= 21;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 20)
+        if (_id < 21)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 20;
+        _id -= 21;
     }
     return _id;
 }

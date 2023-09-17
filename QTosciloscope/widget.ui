@@ -397,6 +397,9 @@
               <property name="readOnly">
                <bool>true</bool>
               </property>
+              <property name="textInteractionFlags">
+               <set>Qt::NoTextInteraction</set>
+              </property>
               <property name="maximumBlockCount">
                <number>100000</number>
               </property>
@@ -555,9 +558,39 @@
                </widget>
               </item>
               <item>
+               <widget class="QCheckBox" name="checkBox">
+                <property name="text">
+                 <string>xAuto</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
                <widget class="QPushButton" name="AutoSet">
                 <property name="text">
                  <string>单次自动</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="stopDraw">
+                <property name="text">
+                 <string>停止绘制</string>
                 </property>
                </widget>
               </item>
@@ -569,13 +602,6 @@
                </widget>
               </item>
              </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="stopDraw">
-              <property name="text">
-               <string>停止绘制</string>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>

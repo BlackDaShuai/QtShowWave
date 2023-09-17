@@ -22,6 +22,10 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
     customInit();
+//    ui->cusplot->setOpenGl(true);
+//    qDebug() << "opengl:" << ui->cusplot->openGl();
+    ui->cusplot->yAxis->setRange(0,3.3);
+
     connect(timeStart,&QTimer::timeout,this,&Widget::customTimeOut);
     connect(/*&showSerialData*/this,&Widget::serialRecOK,this,&Widget::drawSerialData);
 
@@ -38,6 +42,7 @@ Widget::Widget(QWidget *parent)
 //    pletRed.setColor(QPalette::Text,Qt::red);
 //    QPalette pletBlack;
 //    pletBlack.setColor(QPalette::Text,Qt::black);
+    timeStart->setTimerType(Qt::PreciseTimer);
 
 
     //字体的spinbox初始大小
@@ -162,7 +167,7 @@ void Widget::on_open_clicked()
             case 2: Serial->setStopBits(QSerialPort::TwoStop);break;
             default:break;
         }
-//        if(ui->cbStopBits->currentText().toFloat()== 1.5)
+//        if(ui->cbBits->currentText().toFloat()== 1.5)
 //            Serial->setStopBits((QSerialPort::OneAndHalfStop));
 //            ui->receiveEdit->setPlainText(QString::number(Serial->stopBits()));
 
@@ -204,6 +209,8 @@ void Widget::on_open_clicked()
         ui->cbPortName->setEnabled(false);
         ui->cbStopBits->setEnabled(false);
         //调整串口控制按钮的文字提示
+        upDateTime(1);
+        ui->receiveEdit->setTextInteractionFlags(Qt::NoTextInteraction);
         ui->open->setText(QString("关闭串口"));
         ui->receiveEdit->appendPlainText("串口已连接！\r\n");
         ui->lbConnected->setText("当前已连接");
@@ -212,7 +219,8 @@ void Widget::on_open_clicked()
         ui->receiveEdit->appendPlainText("串口已关闭！\r\n");
         ui->lbConnected->setText("当前未连接");
         Serial->close();
-
+        timeStart->stop();
+        ui->receiveEdit->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
         ui->cbBaudRate->setEnabled(true);
         ui->cbDataBits->setEnabled(true);
         ui->cbParity->setEnabled(true);
@@ -232,6 +240,10 @@ void Widget::showSerialData()
     {
 
         QByteArray data = Serial->readAll();
+
+        doubleData = data.toDouble();
+
+
         if(ui->chk0x16Show->isChecked())
         {
 //            data = data.toHex();
@@ -263,12 +275,11 @@ void Widget::showSerialData()
 //        QString toData = QString(data);
         QString toData = QString::fromUtf8(data);
         ui->receiveEdit->insertPlainText(toData);
-        qDebug()<<toData;
+//        qDebug()<<toData;
 
 
 //        flagFirstDataToDraw = 1;
-        upDateTime(1);
-        qDebug()<<countTimeOut;
+
 
         emit serialRecOK();
 
@@ -320,7 +331,7 @@ void Widget::on_send_clicked()
     }
     //发送数据到串口
     Serial->write(sendData);
-    qDebug()<<QString(sendData);
+//    qDebug()<<QString(sendData);
 
     if(ui->chkClearAfterSend->isChecked())
         ui->sendEdit->clear();
@@ -387,25 +398,28 @@ void Widget::customInit()
     ui->cusplot->replot();
 }
 
+
+//此处有qDebug
 void Widget::customTimeOut()
 {
     countTimeOut++;
-
     if(flagUpdateDraw)
     {
 
-        yVal = qSin(countTimeOut);
-        qDebug()<<countTimeOut;
-        qDebug()<<yVal;
+//        yVal =countTimeOut%10;
+        //        qDebug()<<countTimeOut;
+        //        qDebug()<<yVal;
 
 
-        ui->cusplot->graph(0)->addData(countTimeOut,yVal);
+        ui->cusplot->graph(0)->addData(countTimeOut,doubleData);
+        qDebug()<<"x="<<countTimeOut<<"   y="<<doubleData;
 
         //自动更新坐标轴
         updateXYMinMaxToCus();
         //    ui->cusplot->graph(0)->rescaleKeyAxis(true);
         ui->cusplot->replot();
     }
+
 }
 
 //更新坐标轴最大值
@@ -417,9 +431,9 @@ void Widget::updateXYMinMaxToCus()
 //    ui->cusplot->yAxis->setRange(yMinAuto,yMaxAuto);
 
     if(flagAlwaysAuto){
-        //y轴
-        ui->cusplot->graph(0)->rescaleKeyAxis(true);
-        ui->cusplot->graph(0)->rescaleAxes();
+
+
+
 
         //x轴
 //        ui->cusplot->xAxis->setRange((ui->cusplot->graph(0)->dataCount()>xRangeRange)
@@ -429,12 +443,29 @@ void Widget::updateXYMinMaxToCus()
 
 //        ui->cusplot->graph(0)->rescaleKeyAxis(true);
 
+        //y轴
+        //y轴
+                ui->cusplot->graph(0)->rescaleKeyAxis(true);
+                ui->cusplot->graph(0)->rescaleAxes();
+
+
         //x轴
-                ui->cusplot->xAxis->setRange((countTimeOut - xRangeRange)
-                                             ?(countTimeOut - xRangeRange)
+                ui->cusplot->xAxis->setRange((countTimeOut-(3*xRangeRange/4))
+                                         ?(countTimeOut-(3*xRangeRange/4))
                                              :0,
-                                             countTimeOut);
+                                               countTimeOut+(xRangeRange/4));
+
+
+                }
+
+    if(flagXAuto)
+    {
+                ui->cusplot->xAxis->setRange((countTimeOut-(3*xRangeRange/4))
+                                                 ?(countTimeOut-(3*xRangeRange/4))
+                                                 :0,
+                                             countTimeOut+(xRangeRange/4));
     }
+
 
 
 //        ui->cusplot->graph(0)->rescaleValueAxis(true,true);
@@ -450,7 +481,7 @@ void Widget::on_clearCharts_clicked()
 {
     ui->cusplot->graph(0)->data().data()->clear();
     countTimeOut = 0;
-    timeStart->stop();//使定时器停止，防止增加rimeOut的值导致后续数据的x轴混乱
+//    timeStart->stop();//使定时器停止，防止增加rimeOut的值导致后续数据的x轴混乱
 
     ui->cusplot->replot();
 }
@@ -475,16 +506,16 @@ void Widget::on_horizontalSlider_sliderMoved(int position)
 //置位停止绘制
 void Widget::on_stopDraw_clicked()
 {
-    if(ui->stopDraw->text() == "StopDraw")
+    if(ui->stopDraw->text() == "停止绘制")
     {
 
         flagUpdateDraw = 0;
-        ui->stopDraw->setText("StartDraw");
+        ui->stopDraw->setText("开始绘制");
     }
     else
     {
         flagUpdateDraw = 1;
-        ui->stopDraw->setText("StopDraw");
+        ui->stopDraw->setText("停止绘制");
     }
 
 }
@@ -515,5 +546,14 @@ void Widget::on_AlwaysAuto_stateChanged(int arg1)
 void Widget::drawSerialData()
 {
 
+}
+
+
+void Widget::on_checkBox_stateChanged(int arg1)
+{
+    if(arg1 == 2)
+        flagXAuto = 1;
+    else
+        flagXAuto = 0;
 }
 

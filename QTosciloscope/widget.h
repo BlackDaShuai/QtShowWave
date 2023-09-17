@@ -85,9 +85,12 @@ private slots:
 
     void drawSerialData();//串口收完数据后的绘制操作
 
+    void on_checkBox_stateChanged(int arg1);
+
 private:
     Ui::Widget *ui;
 
+    double doubleData = 0.0;
 
 
     int MaxX = 100;
@@ -99,6 +102,7 @@ private:
     bool flagUpdateDraw = 1;
     bool flagAlwaysAuto = 1;
     bool flagFirstDataToDraw = 0;
+    bool flagXAuto = 1;
 
     //绘图数据更新间隔
     int tIv = 10;
