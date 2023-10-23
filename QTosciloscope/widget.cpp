@@ -22,6 +22,9 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
 
     customInit();
+    ui->open->setStyleSheet("color: red;");
+
+    ui->groupBox_7->setVisible(0);
 //    ui->cusplot->setOpenGl(true);
 //    qDebug() << "opengl:" << ui->cusplot->openGl();
     ui->cusplot->yAxis->setRange(0,3.3);
@@ -212,12 +215,15 @@ void Widget::on_open_clicked()
         upDateTime(1);
         ui->receiveEdit->setTextInteractionFlags(Qt::NoTextInteraction);
         ui->open->setText(QString("关闭串口"));
+        ui->open->setStyleSheet("color: orange;");
         ui->receiveEdit->appendPlainText("串口已连接！\r\n");
         ui->lbConnected->setText("当前已连接");
+        ui->lbConnected->setStyleSheet("color: green;");
     }else/* if(ui->open->text() == QString("关闭串口"))*/
     {
         ui->receiveEdit->appendPlainText("串口已关闭！\r\n");
         ui->lbConnected->setText("当前未连接");
+        ui->lbConnected->setStyleSheet("color: rgb(0, 85, 255);");
         Serial->close();
         timeStart->stop();
         ui->receiveEdit->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
@@ -227,6 +233,8 @@ void Widget::on_open_clicked()
         ui->cbPortName->setEnabled(true);
         ui->cbStopBits->setEnabled(true);
         ui->open->setText(QString("打开串口"));
+//        ui->open->setPalette()
+        ui->open->setStyleSheet("color: red;");
     }
 
 
@@ -301,7 +309,11 @@ void Widget::on_send_clicked()
 
 
     QByteArray sendData = ui->sendEdit->toPlainText().toLocal8Bit();
-
+    if(!sendData.isEmpty())
+    {
+    QString ShowTheSend = "\r\n···send···\r\n"+ui->sendEdit->toPlainText()+"\r\n···end···\r\n";
+    ui->receiveEdit->appendPlainText(ShowTheSend);
+    }
     int count = sendData.size();
 
     if(ui->chk0x16Send->isChecked())
@@ -357,8 +369,22 @@ void Widget::on_btnDraw_stateChanged(int arg1)
     //0未选中，2完全选中
     switch(arg1)
     {
-    case 0:ui->groupBox_7->setVisible(0);break;
-    case 2:ui->groupBox_7->setVisible(1);break;
+    case 0:
+        if(this->width() <1500)
+        {
+        if(this->width() > 640)
+        {
+            this->resize(QSize(640,this->height()));
+        }
+        }
+        ui->groupBox_7->setVisible(0);break;
+    case 2:
+        if(this->width() < 1000)
+        {
+            this->resize(QSize(1000,this->height()));
+        }
+
+        ui->groupBox_7->setVisible(1);break;
     default:break;
     }
 
@@ -403,6 +429,7 @@ void Widget::customInit()
 void Widget::customTimeOut()
 {
     countTimeOut++;
+//    qDebug() << this->width() << "    " << this->height();
     if(flagUpdateDraw)
     {
 
@@ -412,7 +439,7 @@ void Widget::customTimeOut()
 
 
         ui->cusplot->graph(0)->addData(countTimeOut,doubleData);
-        qDebug()<<"x="<<countTimeOut<<"   y="<<doubleData;
+//        qDebug()<<"x="<<countTimeOut<<"   y="<<doubleData;
 
         //自动更新坐标轴
         updateXYMinMaxToCus();

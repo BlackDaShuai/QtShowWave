@@ -105,7 +105,7 @@ private:
     bool flagXAuto = 1;
 
     //绘图数据更新间隔
-    int tIv = 10;
+    int tIv = 15;
     int *timeInterval = &tIv;
     double yVal = 0;
 
