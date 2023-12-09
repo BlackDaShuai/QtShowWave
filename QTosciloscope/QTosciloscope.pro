@@ -33,4 +33,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     rec.qrc
 
-RC_ICONS = recf/buz.ico
+RC_ICONS = recf/wave.ico

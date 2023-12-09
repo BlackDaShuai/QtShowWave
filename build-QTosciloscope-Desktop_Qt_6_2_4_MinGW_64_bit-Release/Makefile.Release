@@ -122,7 +122,7 @@ release/qrc_rec.cpp: ../QTosciloscope/rec.qrc \
 		C:/Qt/6.2.4/mingw_64/bin/rcc.exe \
 		../QTosciloscope/recf/warning.ico \
 		../QTosciloscope/recf/warnSanjiao.ico \
-		../QTosciloscope/recf/buz.ico
+		../QTosciloscope/recf/wave.ico
 	C:\Qt\6.2.4\mingw_64\bin\rcc.exe -name rec ..\QTosciloscope\rec.qrc -o release\qrc_rec.cpp
 
 compiler_moc_predefs_make_all: release/moc_predefs.h
@@ -3186,21 +3186,6 @@ release/widget.o: ../QTosciloscope/widget.cpp ../QTosciloscope/widget.h \
 		C:/Qt/6.2.4/mingw_64/include/QtCore/QTimeZone \
 		C:/Qt/6.2.4/mingw_64/include/QtGui/QFont \
 		ui_widget.h \
-		C:/Qt/6.2.4/mingw_64/include/QtGui/QIcon \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QApplication \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QCheckBox \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QComboBox \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QGridLayout \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QGroupBox \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QHBoxLayout \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QLabel \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QPushButton \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QSlider \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QSpacerItem \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QSpinBox \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QSplitter \
-		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QVBoxLayout \
-		../QTosciloscope/mycombobox.h \
 		C:/Qt/6.2.4/mingw_64/include/QtWidgets/QMessageBox \
 		C:/Qt/6.2.4/mingw_64/include/QtCore/QRegularExpression \
 		C:/Qt/6.2.4/mingw_64/include/QtCore/QtMath

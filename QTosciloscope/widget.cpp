@@ -116,8 +116,8 @@ QString Widget::upDateTime(bool arg)
     {
         QString timeNow = current_time.toString();
 //        QString msNow = QString::number(current_time.msec());此方法会导致位数不统一
-        QString msNow = QString("").asprintf("%03d###",current_time.msec());//强制三位数，空位补0
-        return "###"+timeNow+" "+msNow;
+        QString msNow = QString("").asprintf("%03d  >>>end\r\n",current_time.msec());//强制三位数，空位补0
+        return "time>>>  "+timeNow+" "+msNow;
     }
 
 //    ui->receiveEdit->insertPlainText(current_time.toString());
@@ -311,8 +311,11 @@ void Widget::on_send_clicked()
     QByteArray sendData = ui->sendEdit->toPlainText().toLocal8Bit();
     if(!sendData.isEmpty())
     {
-    QString ShowTheSend = "\r\n···send···\r\n"+ui->sendEdit->toPlainText()+"\r\n···end···\r\n";
-    ui->receiveEdit->appendPlainText(ShowTheSend);
+        QString line = "\r\n-------------------------------------\r\n";
+        QString ShowTheSend = "send>>>  "+ui->sendEdit->toPlainText()+"  >>>end\r\n";
+
+        ui->receiveEdit->appendPlainText(line);
+        ui->receiveEdit->appendPlainText(ShowTheSend);
     }
     int count = sendData.size();
 
